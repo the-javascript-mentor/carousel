@@ -1,6 +1,8 @@
 const productWidth = 240;
 const productListNode = document.getElementById("product-list");
 
+let isCarouselMoving = false;
+
 const getNumberOfVisibleCarouselItems = () => {
   let items = 4;
   if (window.matchMedia("(max-width: 1280px)").matches) {
@@ -12,15 +14,36 @@ const getNumberOfVisibleCarouselItems = () => {
   return items;
 };
 
-window.addEventListener("resize", () => {
-  console.log(getNumberOfVisibleCarouselItems());
-});
+const shuffleArray = (array) => {
+  // Fisher-Yates shuffle
+  // https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+  const arrayCopy = [...array];
+  let currentIndex = arrayCopy.length,
+    randomIndex;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [arrayCopy[currentIndex], arrayCopy[randomIndex]] = [
+      arrayCopy[randomIndex],
+      arrayCopy[currentIndex],
+    ];
+  }
+
+  return arrayCopy;
+};
 
 const moveLastItemToFirstPositionAnArray = (array) => {
   return [array[array.length - 1], ...array.slice(0, array.length - 1)];
 };
 
-productListNode.innerHTML = moveLastItemToFirstPositionAnArray(products)
+productListNode.innerHTML = moveLastItemToFirstPositionAnArray(
+  shuffleArray(products)
+)
   .map(
     (product) => `
       <li class="product">
@@ -39,8 +62,11 @@ document.getElementById("product-list").scrollTo({
   left: productWidth,
 });
 
-productListNode.addEventListener("scroll", (event) => {
+productListNode.addEventListener("scroll", () => {
   if (productListNode.scrollLeft % productWidth === 0) {
+    isCarouselMoving = false;
+    document.getElementById("right").disabled = false;
+    document.getElementById("left").disabled = false;
     if (productListNode.scrollLeft === 0) {
       const children = productListNode.children;
       const firstChild = children[0];
@@ -71,15 +97,25 @@ productListNode.addEventListener("scroll", (event) => {
 });
 
 document.getElementById("right").addEventListener("click", () => {
-  document.getElementById("product-list").scrollBy({
-    left: productWidth,
-    behavior: "smooth",
-  });
+  if (!isCarouselMoving) {
+    isCarouselMoving = true;
+    document.getElementById("right").disabled = true;
+    document.getElementById("left").disabled = true;
+    document.getElementById("product-list").scrollBy({
+      left: productWidth,
+      behavior: "smooth",
+    });
+  }
 });
 
 document.getElementById("left").addEventListener("click", () => {
-  document.getElementById("product-list").scrollBy({
-    left: -productWidth,
-    behavior: "smooth",
-  });
+  if (!isCarouselMoving) {
+    isCarouselMoving = true;
+    document.getElementById("right").disabled = true;
+    document.getElementById("left").disabled = true;
+    document.getElementById("product-list").scrollBy({
+      left: -productWidth,
+      behavior: "smooth",
+    });
+  }
 });
