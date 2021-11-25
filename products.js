@@ -2,7 +2,7 @@ const products = [
   {
     name: "1 - Shampoo",
     description: "Makes your hair clean",
-    image: "https://placekitten.com/200/200",
+    image: "https://www.placecage.com/300/300",
   },
   {
     name: "2 - Headphones",
@@ -12,7 +12,7 @@ const products = [
   {
     name: "3 - Trousers",
     description: "Like shorts, but long",
-    image: "https://placekitten.com/220/220",
+    image: "https://www.placecage.com/320/320",
   },
   {
     name: "4 - Lipstick",
@@ -22,7 +22,7 @@ const products = [
   {
     name: "5 - Dog",
     description: "The best friend of people",
-    image: "https://placekitten.com/240/240",
+    image: "https://www.placecage.com/340/340",
   },
   {
     name: "6 - Guitar",
@@ -32,7 +32,7 @@ const products = [
   {
     name: "7 - Candles",
     description: "For people who dislike Edison",
-    image: "https://placekitten.com/260/260",
+    image: "https://www.placecage.com/360/360",
   },
   {
     name: "8 - Notebook",
@@ -42,7 +42,7 @@ const products = [
   {
     name: "9 - Pillow",
     description: "Better sleep and great pillow fights",
-    image: "https://placekitten.com/280/280",
+    image: "https://www.placecage.com/380/380",
   },
   {
     name: "10 - TV",
