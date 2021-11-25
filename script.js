@@ -16,7 +16,11 @@ window.addEventListener("resize", () => {
   console.log(getNumberOfVisibleCarouselItems());
 });
 
-productListNode.innerHTML = products
+const moveLastItemToFirstPositionAnArray = (array) => {
+  return [array[array.length - 1], ...array.slice(0, array.length - 1)];
+};
+
+productListNode.innerHTML = moveLastItemToFirstPositionAnArray(products)
   .map(
     (product) => `
       <li class="product">
@@ -31,17 +35,37 @@ productListNode.innerHTML = products
     `
   )
   .join("");
+document.getElementById("product-list").scrollTo({
+  left: productWidth,
+});
 
 productListNode.addEventListener("scroll", (event) => {
   if (productListNode.scrollLeft % productWidth === 0) {
     if (productListNode.scrollLeft === 0) {
-      console.log("Hit the left edge");
+      const children = productListNode.children;
+      const firstChild = children[0];
+      const lastChild = children[children.length - 1];
+      // Move the last element to the first position
+      productListNode.insertBefore(lastChild, firstChild);
+      // Scroll to the second last element
+      document.getElementById("product-list").scrollTo({
+        left: productWidth,
+      });
     }
     if (
       productListNode.scrollLeft ===
       productWidth * (products.length - getNumberOfVisibleCarouselItems())
     ) {
-      console.log("Hit the right edge");
+      const children = productListNode.children;
+      const firstChild = children[0];
+      // Move the first element to the last position
+      productListNode.appendChild(firstChild);
+      // Scroll to the second last element
+      document.getElementById("product-list").scrollTo({
+        left:
+          productWidth *
+          (products.length - getNumberOfVisibleCarouselItems() - 1),
+      });
     }
   }
 });
