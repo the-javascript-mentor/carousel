@@ -4,8 +4,25 @@
   padding: 0;
 }
 
-.product-list {
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#product-list {
   list-style-type: none;
+  width: calc(4 * 240px);
+  display: flex;
+  flex-flow: row nowrap;
+  overflow: hidden;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 }
 
 .product {
@@ -14,6 +31,8 @@
   border: 1px solid black;
   position: relative;
   display: flex;
+  flex-shrink: 0;
+  scroll-snap-align: start;
 }
 
 .product a {
