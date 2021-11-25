@@ -27,6 +27,7 @@ body {
 #product-list {
   list-style-type: none;
   width: calc(4 * 240px);
+  height: 240px;
   display: flex;
   flex-flow: row nowrap;
   overflow: hidden;
@@ -34,13 +35,31 @@ body {
 }
 
 .product {
-  width: 240px;
-  height: 240px;
+  width: calc(100% / 4);
+  height: 100%;
   border: 1px solid black;
   position: relative;
   display: flex;
   flex-shrink: 0;
   scroll-snap-align: start;
+}
+
+@media (max-width: 1280px) {
+  #product-list {
+    width: calc(3 * 240px);
+  }
+  .product {
+    width: calc(100% / 3);
+  }
+}
+
+@media (max-width: 920px) {
+  #product-list {
+    width: calc(2 * 240px);
+  }
+  .product {
+    width: calc(100% / 2);
+  }
 }
 
 .product a {
