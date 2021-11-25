@@ -13,3 +13,17 @@ document.getElementById("product-list").innerHTML = products
     `
   )
   .join("");
+
+document.getElementById("right").addEventListener("click", () => {
+  document.getElementById("product-list").scrollBy({
+    left: 240,
+    behavior: "smooth",
+  });
+});
+
+document.getElementById("left").addEventListener("click", () => {
+  document.getElementById("product-list").scrollBy({
+    left: -240,
+    behavior: "smooth",
+  });
+});
